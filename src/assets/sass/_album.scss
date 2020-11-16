@@ -1,0 +1,18 @@
+.album {
+    .card {
+        &:hover {
+            cursor: pointer;
+            transform: scale(1.05);
+        }
+        .card-footer {
+            .icon {
+                width: 1rem;
+                height: 1rem;
+                svg {
+                    fill: gray;
+                }
+            }
+        }
+    }
+
+}
