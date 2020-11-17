@@ -11,11 +11,8 @@
 				/>
 			</div>
 		</div>
-		<scroll-loader
-			:loader-method="getAlbums"
-			:loader-enable="loadMore">
+		<scroll-loader :loader-method="getAlbums" :loader-disable="disable">
 		</scroll-loader>
-
 		<Footer />
 	</div>
 </template>
@@ -26,22 +23,26 @@ import axios from "axios";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import SingleAlbum from "./components/Album/SingleAlbum";
+
+
 export default {
 	name: "App",
 	components: {
 		Header,
 		Footer,
 		SingleAlbum,
+
 	},
 	data() {
 		return {
 			albums: [],
-			starts: 0,
-			ends: 10,
+			page: 1,
+			perPage: 12,
 			finishLine: 100,
-			loadMore: true,
+			disable: false,
 		};
 	},
+	watch: {},
 	methods: {
 		/*       getImagesInfo() {
         axios.get('https://api.example.com/', {
@@ -64,18 +65,13 @@ export default {
 			axios
 				.get("https://jsonplaceholder.typicode.com/albums", {
 					params: {
-						_start: 0,
-						_limit:
-							this.ends !== 100
-								? (this.ends = this.ends + 10)
-								: (this.ends = 100),
+						_page: this.page++,
+						_limit: this.perPage,
 					},
 				})
 				.then((res) => {
-					this.albums = res.data;
-					if (res.data.length === this.finishLine) {
-						this.loadMore = false;
-					}
+					this.albums = [...this.albums, ...res.data];
+					this.disable = res.data.length < this.pageSize || res.data.length === 0
 				});
 		},
 	},
