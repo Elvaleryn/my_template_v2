@@ -1,5 +1,5 @@
 <template>
-	<div class="col-md-3 col-sm-12 mt-3 d-flex">
+	<div class="col-lg-3 col-md-6 col-sm-12 mt-3 d-flex">
 		<div class="card mb-3 flex-fill" @click="triggerModal">
 			<img
 				class="card-img-top"
@@ -102,6 +102,3 @@ export default {
 	},
 };
 </script>
-
-<style>
-</style>

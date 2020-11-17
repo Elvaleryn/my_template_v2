@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
+import ScrollLoader from 'vue-scroll-loader'
 
 Vue.config.productionTip = false
-import ScrollLoader from 'vue-scroll-loader'
 Vue.use(ScrollLoader)
 import "@/assets/sass/main.scss"
 

@@ -1,63 +1,24 @@
 <template>
 	<div id="app">
 		<Header />
-		<div class="container album mt-5">
-			<div class="row">
-				<SingleAlbum
-					v-for="album in albums"
-					:key="album.id"
-					:title="album.title"
-					:id="album.id"
-				/>
-			</div>
-		</div>
-		<scroll-loader :loader-method="getAlbums" :loader-disable="disable">
-		</scroll-loader>
+        <Albums />
 		<Footer />
 	</div>
 </template>
 
 <script>
-import axios from "axios";
-
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-import SingleAlbum from "./components/Album/SingleAlbum";
+import Albums from "./components/Albums";
 
 export default {
 	name: "App",
 	components: {
 		Header,
 		Footer,
-		SingleAlbum,
-	},
-	data() {
-		return {
-			albums: [],
-			page: 1,
-			perPage: 12,
-			disable: false,
-		};
-	},
-	methods: {
-		getAlbums() {
-			axios
-				.get("https://jsonplaceholder.typicode.com/albums", {
-					params: {
-						_page: this.page++,
-						_limit: this.perPage,
-					},
-				})
-				.then((res) => {
-					this.albums = [...this.albums, ...res.data];
-					this.disable =
-						res.data.length < this.pageSize ||
-						res.data.length === 0;
-				});
-		},
-	},
-	mounted() {
-		this.getAlbums();
+		Albums,
 	},
 };
 </script>
+
+

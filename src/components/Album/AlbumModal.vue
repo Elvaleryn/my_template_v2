@@ -1,57 +1,13 @@
 <template>
 	<div
-		:class="`modal fade bd-example-modal-lg`"
+		class="modal fade bd-example-modal-lg"
 		tabindex="-1"
 		:id="id"
 		role="dialog"
 	>
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div
-					:id="`carousel${id}`"
-					class="carousel slide carousel-fade"
-					:class="`carousel${id}`"
-				>
-					<div class="carousel-inner">
-						<div
-							class="carousel-item"
-							v-for="(photo, idx) in photos"
-							:class="{ active: idx == 0 }"
-							:key="photo.id"
-						>
-							<img
-								:src="photo.url"
-								alt=""
-								class="d-block w-100"
-							/>
-						</div>
-					</div>
-
-					<a
-						class="carousel-control-prev"
-						:href="`#carousel${id}`"
-						role="button"
-						data-slide="prev"
-					>
-						<span
-							class="carousel-control-prev-icon"
-							aria-hidden="true"
-						></span>
-						<span class="sr-only">Previous</span>
-					</a>
-					<a
-						class="carousel-control-next"
-						:href="`#carousel${id}`"
-						role="button"
-						data-slide="next"
-					>
-						<span
-							class="carousel-control-next-icon"
-							aria-hidden="true"
-						></span>
-						<span class="sr-only">Next</span>
-					</a>
-				</div>
+                <PhotoCarousel :id="id" :photos="photos"/>
 				<div
 					class="modal-body px-0 d-flex flex-wrap align-items-center justify-content-center"
 					v-if="imagesAreVisible"
@@ -93,10 +49,9 @@
 </template>
 
 <script>
-//import ModalImage from "./ModalImage";
 import SingleComment from "./SingleComment";
 import SingleImage from "./SingleImage";
-
+import PhotoCarousel from "./PhotoCarousel";
 export default {
 	name: "AlbumModal",
 	props: {
@@ -106,7 +61,8 @@ export default {
 	},
 	components: {
 		SingleComment,
-		SingleImage,
+        SingleImage,
+        PhotoCarousel
 	},
 	data() {
 		return {

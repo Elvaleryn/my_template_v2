@@ -13,7 +13,6 @@
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/buttons";
 @import "~bootstrap/scss/card";
-@import "~bootstrap/scss/popover";
 @import "~bootstrap/scss/modal";
 @import "~bootstrap/scss/dropdown";
 @import "~bootstrap/scss/alert";
@@ -24,6 +23,11 @@ body {
     background-color: $bg-primary;
     font-family: 'Roboto',
         sans-serif;
+}
+
+button {
+     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 }
 
 @import "navbar.scss";
