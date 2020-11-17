@@ -24,25 +24,24 @@ import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 import SingleAlbum from "./components/Album/SingleAlbum";
 
-
 export default {
 	name: "App",
 	components: {
 		Header,
 		Footer,
 		SingleAlbum,
-
 	},
 	data() {
 		return {
 			albums: [],
 			page: 1,
 			perPage: 12,
-			finishLine: 100,
 			disable: false,
 		};
 	},
-	watch: {},
+	watch: {
+		albums: function () {},
+	},
 	methods: {
 		/*       getImagesInfo() {
         axios.get('https://api.example.com/', {
@@ -71,7 +70,9 @@ export default {
 				})
 				.then((res) => {
 					this.albums = [...this.albums, ...res.data];
-					this.disable = res.data.length < this.pageSize || res.data.length === 0
+					this.disable =
+						res.data.length < this.pageSize ||
+						res.data.length === 0;
 				});
 		},
 	},

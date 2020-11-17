@@ -15,4 +15,12 @@
         }
     }
 
+    .modal {
+        .carousel-inner {
+            img {
+                max-height: 300px;
+            }
+        }
+    }
+
 }

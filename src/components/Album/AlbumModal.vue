@@ -1,10 +1,10 @@
 <template>
 	<div
-		class="modal fade bd-example-modal-lg"
+		:class="`modal fade bd-example-modal-lg`"
 		tabindex="-1"
+        :id="id"
 		role="dialog"
-		aria-labelledby="myLargeModalLabel"
-		aria-hidden="true"
+
 	>
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -16,7 +16,7 @@
 					<div class="carousel-inner">
 						<div class="carousel-item active">
 							<img
-								:src="mainPhoto"
+								:src="firstPhoto"
 								class="d-block w-100"
 								alt="..."
 							/>
@@ -78,41 +78,49 @@
 <script>
 import ModalImage from "./ModalImage";
 import SingleComment from "./SingleComment";
-import axios from "axios";
+
 export default {
 	name: "AlbumModal",
 	props: {
-		photos: Array,
-        id: Number,
-        mainPhoto: String
+        comments: Array,
+        photos: Array,
+		id: Number,
+		firstPhoto: String,
 	},
 	components: {
 		ModalImage,
 		SingleComment,
-	},
-	data() {
+    },
+
+/* 	data() {
 		return {
+			photos: [],
 			comments: [],
 		};
 	},
 	methods: {
-		getComments() {
-			console.log("getting comments");
+		getAllComments() {
 			axios
-				.get("https://jsonplaceholder.typicode.com/comments", {
-					params: {
-						_limit: 5,
-					},
-				})
+				.get(
+					`https://jsonplaceholder.typicode.com/comments?postId=${this.id}`
+				)
 				.then((res) => {
-					this.comments = res.data.filter(
-						(comment) => comment.postId === this.id
-					);
+					this.comments = res.data;
+				});
+		},
+		getAllPhotos() {
+			axios
+				.get(
+					`https://jsonplaceholder.typicode.com/photos?albumId=${this.id}`
+				)
+				.then((res) => {
+					this.photos = res.data;
 				});
 		},
 	},
 	mounted() {
-		this.getComments();
-	},
+        this.getAllPhotos();
+        this.getAllComments();
+	}, */
 };
 </script>

@@ -2,10 +2,13 @@
 	<div class="col-md-3 col-sm-12 mt-3 d-flex">
 		<div
 			class="card mb-3 flex-fill"
-			data-toggle="modal"
-			data-target=".bd-example-modal-lg"
+            @click="triggerModal"
 		>
-			<img class="card-img-top" :src="mainPhoto" alt="Card image cap" />
+			<img
+				class="card-img-top"
+				:src="albumThumbNail"
+				alt="Card image cap"
+			/>
 			<div class="card-body">
 				<p class="card-text">
 					{{ title }}
@@ -14,7 +17,7 @@
 			<div class="card-footer text-muted bg-white">
 				<p class="card-text">
 					<small class="text-muted">
-						142 comments
+						50 photos
 						<svg class="icon">
 							<use
 								xlink:href="../../assets/sprite.svg#icon-chat-bubble-dots"
@@ -24,13 +27,14 @@
 				</p>
 			</div>
 		</div>
-		<AlbumModal :photos="photos" :id="id" :mainPhoto="mainPhoto" />
+		<AlbumModal :id="id" :firstPhoto="firstPhoto" :photos="photos" :comments="comments"/>
 	</div>
 </template>
 
 <script>
 import axios from "axios";
 import AlbumModal from "./AlbumModal";
+import $ from 'jquery';
 export default {
 	name: "SingleAlbum",
 	props: {
@@ -42,43 +46,53 @@ export default {
 	},
 	data() {
 		return {
-			photos: [],
-			mainPhoto: "",
+			albumThumbNail: "",
+            firstPhoto: "",
+            photos: [],
+            comments: []
 		};
 	},
 	methods: {
-		/*  axios.get('https://api.example.com/', {
-            params: {
-              page: this.page++,
-              per_page: this.pageSize,
-            }
-          })
-          .then(res => {
-            this.images.concat(res.data)
-            
-            // Stop scroll-loader
-            res.data.length <script this.pageSize && (this.loadMore = false)
-          })
-          .catch(error => {
-            console.log(error);
-          }) */
-		getPhotos() {
+        triggerModal() {
+            $(`#${this.id}`).modal('show');
+            this.getAllComments();
+            this.getAllPhotos();
+        },
+		getAllComments() {
 			axios
-				.get("https://jsonplaceholder.typicode.com/photos", {
+				.get(
+					`https://jsonplaceholder.typicode.com/comments?postId=${this.id}`
+				)
+				.then((res) => {
+					this.comments = res.data;
+				});
+		},
+		getAllPhotos() {
+			axios
+				.get(
+					`https://jsonplaceholder.typicode.com/photos?albumId=${this.id}`
+				)
+				.then((res) => {
+					this.photos = res.data;
+				});
+		},
+		getFirstPhoto() {
+			axios
+				.get(`https://jsonplaceholder.typicode.com/photos`, {
 					params: {
-						_limit: 5,
+						albumId: this.id,
+						_page: 1,
+						_limit: 1,
 					},
 				})
 				.then((res) => {
-					this.photos = res.data.filter(
-						(photo) => photo.albumId === this.id
-					);
-					this.mainPhoto = res.data[0].thumbnailUrl;
+					this.albumThumbNail = res.data[0].thumbnailUrl;
+					this.firstPhoto = res.data[0].url;
 				});
 		},
 	},
 	mounted() {
-		this.getPhotos();
+		this.getFirstPhoto();
 	},
 };
 </script>
