@@ -17,7 +17,7 @@
 			<div class="card-footer text-muted bg-white">
 				<p class="card-text">
 					<small class="text-muted">
-						50 photos
+						See the album
 						<svg class="icon">
 							<use
 								xlink:href="../../assets/sprite.svg#icon-chat-bubble-dots"

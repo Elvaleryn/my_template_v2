@@ -1,5 +1,5 @@
 <template>
-	<div class="carousel-item">
+	<div class="carousel-item" :class="index === 0 ? 'active' : ''" >
 		<img :src="imgUrl" class="d-block w-100" alt="..."  />
 	</div>
 </template>
@@ -8,10 +8,8 @@
 export default {
 	name: "ModalImage",
 	props: {
-		imgUrl: String,
+        imgUrl: String,
+        index: Number
 	},
 };
 </script>
-
-<style>
-</style>

@@ -2,30 +2,38 @@
 	<div
 		:class="`modal fade bd-example-modal-lg`"
 		tabindex="-1"
-        :id="id"
+		:id="id"
 		role="dialog"
-
 	>
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div
 					id="carouselExampleFade"
 					class="carousel slide carousel-fade"
-					data-ride="carousel"
+                    data-ride="carousel"
 				>
 					<div class="carousel-inner">
-						<div class="carousel-item active">
+						<!-- 	<div class="carousel-item active">
 							<img
 								:src="firstPhoto"
 								class="d-block w-100"
 								alt="..."
 							/>
+						</div> -->
+						<div
+							class="carousel-item"
+							v-for="(photo, idx) in photos"
+							:class="{ active: idx == 0 }"
+                            :key="photo.id"
+						>
+							<img :src="photo.url" alt="" class="d-block w-100"/>
 						</div>
-						<ModalImage
-							v-for="photo in photos"
+				<!-- 		<ModalImage
+							v-for="(photo, index) in photos"
 							:imgUrl="photo.url"
 							:key="photo.id"
-						/>
+							:index="index"
+						/> -->
 					</div>
 					<a
 						class="carousel-control-prev"
@@ -76,23 +84,23 @@
 </template>
 
 <script>
-import ModalImage from "./ModalImage";
+//import ModalImage from "./ModalImage";
 import SingleComment from "./SingleComment";
 
 export default {
 	name: "AlbumModal",
 	props: {
-        comments: Array,
-        photos: Array,
+		comments: Array,
+		photos: Array,
 		id: Number,
 		firstPhoto: String,
 	},
 	components: {
-		ModalImage,
-		SingleComment,
-    },
 
-/* 	data() {
+		SingleComment,
+	},
+
+	/* 	data() {
 		return {
 			photos: [],
 			comments: [],
