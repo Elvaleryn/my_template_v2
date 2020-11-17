@@ -39,27 +39,7 @@ export default {
 			disable: false,
 		};
 	},
-	watch: {
-		albums: function () {},
-	},
 	methods: {
-		/*       getImagesInfo() {
-        axios.get('https://api.example.com/', {
-            params: {
-              page: this.page++,
-              per_page: this.pageSize,
-            }
-          })
-          .then(res => {
-            this.images.concat(res.data)
-            
-            // Stop scroll-loader
-            res.data.length < this.pageSize && (this.loadMore = false)
-          })
-          .catch(error => {
-            console.log(error);
-          })
-      } */
 		getAlbums() {
 			axios
 				.get("https://jsonplaceholder.typicode.com/albums", {
@@ -81,14 +61,3 @@ export default {
 	},
 };
 </script>
-
-<style lang="scss">
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-} */
-</style>

@@ -1,9 +1,6 @@
 <template>
 	<div class="col-md-3 col-sm-12 mt-3 d-flex">
-		<div
-			class="card mb-3 flex-fill"
-            @click="triggerModal"
-		>
+		<div class="card mb-3 flex-fill" @click="triggerModal">
 			<img
 				class="card-img-top"
 				:src="albumThumbNail"
@@ -27,14 +24,18 @@
 				</p>
 			</div>
 		</div>
-		<AlbumModal :id="id" :firstPhoto="firstPhoto" :photos="photos" :comments="comments"/>
+		<AlbumModal
+			:id="id"
+			:photos="photos"
+			:comments="comments"
+		/>
 	</div>
 </template>
 
 <script>
 import axios from "axios";
 import AlbumModal from "./AlbumModal";
-import $ from 'jquery';
+import $ from "jquery";
 export default {
 	name: "SingleAlbum",
 	props: {
@@ -47,17 +48,18 @@ export default {
 	data() {
 		return {
 			albumThumbNail: "",
-            firstPhoto: "",
-            photos: [],
-            comments: []
+			photos: [],
+			comments: [],
 		};
 	},
 	methods: {
-        triggerModal() {
-            $(`#${this.id}`).modal('show');
-            this.getAllComments();
-            this.getAllPhotos();
-        },
+		triggerModal() {
+			$(`#${this.id}`).modal("show");
+			if (this.photos.length === 0 && this.comments.length === 0) {
+				this.getAllComments();
+				this.getAllPhotos();
+			}
+		},
 		getAllComments() {
 			axios
 				.get(
@@ -74,6 +76,7 @@ export default {
 				)
 				.then((res) => {
 					this.photos = res.data;
+					$(`.carousel${this.id}`).carousel();
 				});
 		},
 		getFirstPhoto() {
@@ -90,7 +93,10 @@ export default {
 					this.firstPhoto = res.data[0].url;
 				});
 		},
-	},
+    },
+    beforeDestroy() {
+        $(`#${this.id}`).destroy();
+    },
 	mounted() {
 		this.getFirstPhoto();
 	},

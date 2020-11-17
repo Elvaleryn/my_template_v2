@@ -12,22 +12,18 @@
 @import "~bootstrap/scss/grid";
 @import "~bootstrap/scss/navbar";
 @import "~bootstrap/scss/buttons";
-@import "~bootstrap/scss/button-group";
 @import "~bootstrap/scss/card";
-@import "~bootstrap/scss/custom-forms";
-@import "~bootstrap/scss/forms";
-@import "~bootstrap/scss/input-group";
 @import "~bootstrap/scss/popover";
 @import "~bootstrap/scss/modal";
 @import "~bootstrap/scss/dropdown";
-@import "~bootstrap/scss/pagination";
-@import "~bootstrap/scss/list-group";
 @import "~bootstrap/scss/alert";
-@import "~bootstrap/scss/tables";
-@import "~bootstrap/scss/badge";
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
     background-color: $bg-primary;
+    font-family: 'Roboto',
+        sans-serif;
 }
 
 @import "navbar.scss";

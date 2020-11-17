@@ -8,36 +8,28 @@
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				<div
-					id="carouselExampleFade"
+					:id="`carousel${id}`"
 					class="carousel slide carousel-fade"
-                    data-ride="carousel"
+					:class="`carousel${id}`"
 				>
 					<div class="carousel-inner">
-						<!-- 	<div class="carousel-item active">
-							<img
-								:src="firstPhoto"
-								class="d-block w-100"
-								alt="..."
-							/>
-						</div> -->
 						<div
 							class="carousel-item"
 							v-for="(photo, idx) in photos"
 							:class="{ active: idx == 0 }"
-                            :key="photo.id"
-						>
-							<img :src="photo.url" alt="" class="d-block w-100"/>
-						</div>
-				<!-- 		<ModalImage
-							v-for="(photo, index) in photos"
-							:imgUrl="photo.url"
 							:key="photo.id"
-							:index="index"
-						/> -->
+						>
+							<img
+								:src="photo.url"
+								alt=""
+								class="d-block w-100"
+							/>
+						</div>
 					</div>
+
 					<a
 						class="carousel-control-prev"
-						href="#carouselExampleFade"
+						:href="`#carousel${id}`"
 						role="button"
 						data-slide="prev"
 					>
@@ -49,7 +41,7 @@
 					</a>
 					<a
 						class="carousel-control-next"
-						href="#carouselExampleFade"
+						:href="`#carousel${id}`"
 						role="button"
 						data-slide="next"
 					>
@@ -60,7 +52,17 @@
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
-				<div class="modal-body">
+				<div
+					class="modal-body px-0 d-flex flex-wrap align-items-center justify-content-center"
+					v-if="imagesAreVisible"
+				>
+					<SingleImage
+						v-for="photo in photos"
+						:key="photo.id"
+						:src="photo.thumbnailUrl"
+					/>
+				</div>
+				<div class="modal-body px-0" v-else>
 					<SingleComment
 						v-for="comment in comments"
 						:key="comment.id"
@@ -69,10 +71,17 @@
 						:email="comment.email"
 					/>
 				</div>
-				<div class="modal-footer">
+				<div class="modal-footer d-flex justify-content-between">
+					<button
+						class="btn btn-primary"
+						@click="imagesAreVisible = !imagesAreVisible"
+					>
+						<span v-if="!imagesAreVisible">See all photos</span
+						><span v-else>See all comments</span>
+					</button>
 					<button
 						type="button"
-						class="btn btn-secondary"
+						class="btn btn-secondary px-5"
 						data-dismiss="modal"
 					>
 						Close
@@ -86,6 +95,7 @@
 <script>
 //import ModalImage from "./ModalImage";
 import SingleComment from "./SingleComment";
+import SingleImage from "./SingleImage";
 
 export default {
 	name: "AlbumModal",
@@ -93,42 +103,15 @@ export default {
 		comments: Array,
 		photos: Array,
 		id: Number,
-		firstPhoto: String,
 	},
 	components: {
-
 		SingleComment,
+		SingleImage,
 	},
-
-	/* 	data() {
+	data() {
 		return {
-			photos: [],
-			comments: [],
+			imagesAreVisible: false,
 		};
 	},
-	methods: {
-		getAllComments() {
-			axios
-				.get(
-					`https://jsonplaceholder.typicode.com/comments?postId=${this.id}`
-				)
-				.then((res) => {
-					this.comments = res.data;
-				});
-		},
-		getAllPhotos() {
-			axios
-				.get(
-					`https://jsonplaceholder.typicode.com/photos?albumId=${this.id}`
-				)
-				.then((res) => {
-					this.photos = res.data;
-				});
-		},
-	},
-	mounted() {
-        this.getAllPhotos();
-        this.getAllComments();
-	}, */
 };
 </script>

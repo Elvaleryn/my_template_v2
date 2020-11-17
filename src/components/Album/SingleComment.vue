@@ -1,7 +1,8 @@
 <template>
-	<div class="comment pb-3">
+	<div class="comment pb-3 pt-3 px-3">
 		<p>
-			{{ name }} <span class="text-muted">{{ email }}</span>
+			<span class="comment-name">{{ name }} </span>
+			<span class="text-muted">{{ `(${email})` }}</span>
 		</p>
 		<p>{{ body }}</p>
 	</div>
@@ -9,12 +10,12 @@
 
 <script>
 export default {
-    name: "SingleComment",
-    props: {
-        name: String,
-        email: String,
-        body: String
-    }
+	name: "SingleComment",
+	props: {
+		name: String,
+		email: String,
+		body: String,
+	},
 };
 </script>
 
